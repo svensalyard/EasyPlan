@@ -18,6 +18,19 @@ $(document).on('DOMContentLoaded', function () {
   $('.timeblock').each(function() {
     var current = dayjs().hour();
     var block = document.getElementsByTagName(".time-block").attr('id');
+    if (block === current) {
+      block.removeClass('past');
+      block.removeClass('future');
+      block.addClass('present');
+    } else if (block < current) {
+      block.removeClass('present');
+      block.removeClass('future');
+      block.addClass('past');
+  } else {
+    block.removeClass('present');
+    block.removeClass('past');
+    block.addClass('future');
+  };
   });
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
@@ -27,5 +40,6 @@ $(document).on('DOMContentLoaded', function () {
     localStorage.setItem()
   };
   // TODO: Add code to display the current date in the header of the page.
-
+  const currentDate = dayjs().format('dddd, MMMM D, YYYY');
+  document.querySelector('#currentDay').textContent = currentDateTime;
 });
