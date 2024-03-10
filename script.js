@@ -1,45 +1,34 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(document).on('DOMContentLoaded', function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  const button = document.querySelector(".saveBtn")
-  button.addEventListener("click", save());
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  $('.timeblock').each(function() {
-    var current = dayjs().hour();
-    var block = document.getElementsByTagName(".time-block").attr('id');
-    if (block === current) {
-      block.removeClass('past');
-      block.removeClass('future');
-      block.addClass('present');
-    } else if (block < current) {
-      block.removeClass('present');
-      block.removeClass('future');
-      block.addClass('past');
-  } else {
-    block.removeClass('present');
-    block.removeClass('past');
-    block.addClass('future');
-  };
-  });
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  function save() {
-    console.log("saveBtn clicked.")
-    localStorage.setItem()
-  };
-  // TODO: Add code to display the current date in the header of the page.
-  const currentDate = dayjs().format('dddd, MMMM D, YYYY');
-  document.querySelector('#currentDay').textContent = currentDateTime;
+// Wrap code in a jquery check to render page when eveyrthing is loaded
+$(document).on("DOMContentLoaded", function () {
+	//query selector for save button and event listener for when that button is clicked
+	const button = document.querySelector(".saveBtn");
+	button.addEventListener("click", save());
+
+	//compares the classes against one another depending on the id of each timeblock
+	$(".timeblock").each(function () {
+		var current = dayjs().hour();
+		var block = document.getElementsByTagName(".time-block").attr("id");
+		if (block === current) {
+			block.removeClass("past");
+			block.removeClass("future");
+			block.addClass("present");
+		} else if (block < current) {
+			block.removeClass("present");
+			block.removeClass("future");
+			block.addClass("past");
+		} else {
+			block.removeClass("present");
+			block.removeClass("past");
+			block.addClass("future");
+		}
+	});
+
+	//Sets item to local storage
+	function save() {
+		console.log("saveBtn clicked.");
+		localStorage.setItem();
+	}
+	// Displays the time on the top of the page
+	const currentDate = dayjs().format("dddd, MMMM D, YYYY");
+	document.querySelector("#currentDay").textContent = currentDateTime;
 });
